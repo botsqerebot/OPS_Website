@@ -1,16 +1,17 @@
 <script>
 	import '../app.css';
 	import Comp1 from '$lib/Comp1.svelte';
+	import NavBar from '$lib/navBar.svelte';
+	import Footer from '$lib/footer.svelte';
 	let name = 'Tord';
 
-	let { children } = $props();
+	//let { children } = $props();
 </script>
 
-<Comp1 {$name}></Comp1>
-top bar
-<br />
+<NavBar />
+<Comp1 {name}></Comp1>
 
-{@render children()}
+<!-- {@render children()} -->
+<slot></slot>
 <main></main>
-
-botomm bar
+<Footer />
