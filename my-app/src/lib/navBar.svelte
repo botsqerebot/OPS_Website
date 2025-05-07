@@ -87,10 +87,18 @@
 				</div>
 			{/if}
 		</div>
-		<div class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl"><h1>Become a seller</h1></div>
-		<div class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2">
+		<button
+			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer"
+			on:click={() => goto('/become-a-seller')}
+		>
+			<h1>Become a seller</h1>
+		</button>
+		<button
+			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
+			on:click={() => goto('/login')}
+		>
 			<FontAwesomeIcon icon={faSignInAlt} />
 			<h1>Log in</h1>
-		</div>
+		</button>
 	</div>
 </div>
