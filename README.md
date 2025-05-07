@@ -6,10 +6,13 @@ Gruppe delta lager en nettside med sosialemedie og finn.no og fiverr.
 
 ```bash
 brew install node
+npm install @fortawesome/free-solid-svg-icons @fortawesome/svelte-fontawesome
 ```
 
 # Hvordan kjøre
 
 ```bash
+cd my-app/
+npm install
 npm run dev
 ```
