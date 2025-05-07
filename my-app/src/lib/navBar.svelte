@@ -1,9 +1,28 @@
 <script>
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { faHome, faArrowUp, faSignInAlt, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
-	let showDropdown = false; // State to toggle the dropdown
+	let showDropdown = false;
+
+	// Function to handle clicks outside the dropdown
+	function handleClickOutside(event) {
+		const dropdown = document.getElementById('dropdownMenu');
+		if (dropdown && !dropdown.contains(event.target)) {
+			showDropdown = false;
+		}
+	}
+
+	// Add event listener only on the client side
+	onMount(() => {
+		if (showDropdown) {
+			document.addEventListener('click', handleClickOutside);
+		}
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+	});
 </script>
 
 <div class="w-full h-[66px] px-5 flex items-center justify-between bg-[#191919] text-white">
@@ -43,10 +62,28 @@
 
 			<!-- Dropdown Menu -->
 			{#if showDropdown}
-				<div class="absolute mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg">
-					<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-sm">Option 1</div>
-					<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-sm">Option 2</div>
-					<div class="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-sm">Option 3</div>
+				<div
+					id="dropdownMenu"
+					class="absolute mt-2 bg-white text-black border border-gray-300 rounded-lg shadow-lg flex items-center flex-col"
+				>
+					<button
+						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
+						on:click={() => goto('/option1')}
+					>
+						Option 1
+					</button>
+					<button
+						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
+						on:click={() => goto('/option2')}
+					>
+						Option 2
+					</button>
+					<button
+						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
+						on:click={() => goto('/option3')}
+					>
+						Option 3
+					</button>
 				</div>
 			{/if}
 		</div>
