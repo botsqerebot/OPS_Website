@@ -7,6 +7,7 @@ Gruppe delta lager en nettside med sosialemedie og finn.no og fiverr.
 ```bash
 brew install node
 npm install @fortawesome/free-solid-svg-icons @fortawesome/svelte-fontawesome
+npm install @supabase/supabase-js
 ```
 
 # Hvordan kjøre
