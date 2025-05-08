@@ -32,7 +32,7 @@
 	<div id="navBarContents" class="flex items-center flex-row gap-6">
 		<button
 			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
-			on:click={() => goto('./')}
+			on:click={() => goto('./anonnsePage')}
 		>
 			<FontAwesomeIcon icon={faHome} />
 			<h1>Explore</h1>
@@ -68,7 +68,7 @@
 				>
 					<button
 						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
-						on:click={() => goto('/option1')}
+						on:click={() => goto('./createAdd')}
 					>
 						Option 1
 					</button>
@@ -95,7 +95,7 @@
 		</button>
 		<button
 			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
-			on:click={() => goto('/login')}
+			on:click={() => goto('/supabase_Test')}
 		>
 			<FontAwesomeIcon icon={faSignInAlt} />
 			<h1>Log in</h1>
