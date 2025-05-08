@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
     import { supabase } from '$lib/supabase';
 
     let anonnser = [];
@@ -12,6 +13,10 @@
         } else {
             anonnser = data;
         }
+    }
+
+    function goToAnonnsePage(id) {
+        goto(`/anonnse/${id}`);
     }
 
     // Fetch data when the component is mounted
@@ -28,10 +33,15 @@
     <ul>
         {#each anonnser as anonnse}
             <li>
+                <button 
+                class="block p-4 border rounded hover:bg-gray-100 w-full text-left"
+                on:click={() => goToAnonnsePage(anonnse.id)}
+            >
                 <p><strong>ID:</strong> {anonnse.id}</p>
                 <p><strong>Created At:</strong> {anonnse.created_at}</p>
                 <p><strong>Navn:</strong> {anonnse.navn}</p>
                 <p><strong>Beskrivelse:</strong> {anonnse.beskrivelse}</p>
+            </button>
             </li>
         {/each}
     </ul>
