@@ -1,6 +1,7 @@
 <script>
     import { supabase } from '$lib/supabase';
     import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
     let anonnse = null;
     let error = null;
@@ -23,6 +24,10 @@
     }
 
     fetchAnonnse();
+
+    function goToExplore() {
+        goto('/anonnsePage');
+    }
 </script>
 
 {#if error}
@@ -31,6 +36,10 @@
     <p>Loading...</p>
 {:else}
     <div>
+        <!-- Breadcrumb navigation -->
+         <div><button on:click={goToExplore}>/Explore</button><span>/{anonnse.navn}</span></div>
+
+
         <h1>{anonnse.navn}</h1>
         <p><strong>ID:</strong> {anonnse.id}</p>
         <p><strong>Created At:</strong> {anonnse.created_at}</p>
