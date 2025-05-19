@@ -1,5 +1,9 @@
 <script>
     import { supabase } from '$lib/supabase';
+    import { writable } from 'svelte/store';
+    import { session } from '$lib/store/session';
+    import { get } from 'svelte/store';
+
 
     let navn = '';
     let beskrivelse = '';
@@ -7,13 +11,42 @@
     let successMessage = null;
 
     // Function to handle form submission
-    async function createAd() {
+    /* async function createAd() {
         error = null;
         successMessage = null;
 
         // Insert data into the "Anonnser" table
         const { error: insertError } = await supabase.from('Annonser').insert([
             { navn, beskrivelse }
+        ]);
+
+        if (insertError) {
+            error = insertError.message;
+        } else {
+            successMessage = 'Ad created successfully!';
+            navn = '';
+            beskrivelse = '';
+        }
+    } */
+    async function createAd() {
+        error = null;
+        successMessage = null;
+
+        const currentSession = get(session);
+
+        // Check if the user is logged in
+        if (!currentSession || !currentSession.user) {
+            error = 'You must be logged in to create an ad.';
+            return;
+        }
+
+        // Insert data into the "Anonnser" table
+        const { error: insertError } = await supabase.from('Annonser').insert([
+            {
+                navn,
+                beskrivelse,
+                creator_id: currentSession.user.id // Set the creator_id to the logged-in user's ID
+            }
         ]);
 
         if (insertError) {

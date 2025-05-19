@@ -12,37 +12,11 @@
     let loginPassword = '';
     let loginError = '';
     let isRegistering = false;
+    let description = '';
+    let newDescription = '';
+    let isEditingDescription = false;
 
- /*    async function fetchUserData() {
-        try {
-            const currentSession = get(session);
-
-            if (currentSession && currentSession.user) {
-                user = currentSession.user;
-                email = user.email;
-
-                // Fetch user metadata
-                const { data, error: metadataError } = await supabase
-                    .from('profiles')
-                    .select('fornavn, etternavn, klasse, rolle')
-                    .eq('id', user.id)
-                    .single();
-
-                if (metadataError) {
-                    console.error('Error fetching user metadata:', metadataError.message);
-                } else if (data) {
-                    fornavn = data.fornavn;
-                    etternavn = data.etternavn;
-                    klasse = data.klasse;
-                    rolle = data.rolle;
-                } else {
-                    console.warn('No metadata found for user:', user.id);
-                }
-            }
-        } catch (error) {
-            console.error('Unexpected error in fetchUserData:', error);
-        }
-    } */
+    // Listen for authentication state changes
     async function fetchUserData() {
         try {
             const currentSession = get(session);
@@ -54,7 +28,7 @@
                 // Fetch user metadata
                 const { data, error: metadataError } = await supabase
                     .from('profiles')
-                    .select('fornavn, etternavn')
+                    .select('fornavn, etternavn, description')
                     .eq('id', user.id)
                     .single();
 
@@ -63,12 +37,31 @@
                 } else if (data) {
                     fornavn = data.fornavn;
                     etternavn = data.etternavn;
+                    description = data.description || '';
                 } else {
                     console.warn('No metadata found for user:', user.id);
                 }
             }
         } catch (error) {
             console.error('Unexpected error in fetchUserData:', error);
+        }
+    }
+
+    async function updateDescription() {
+        try {
+            const {error} = await supabase
+                .from('profiles')
+                .update({description: newDescription})
+                .eq('id', user.id);
+            
+                if (error) {
+                    console.error('Error updating description', error.message);
+                } else {
+                    description = newDescription;
+                    isEditingDescription = false;
+                }
+        } catch (error) {
+            console.log('Unexpected error during description update: ', error)
         }
     }
 
@@ -147,6 +140,39 @@
         <p><strong>First Name:</strong> {fornavn}</p>
         <p><strong>Last Name:</strong> {etternavn}</p>
         <p><strong>Email:</strong> {email}</p>
+        <p><strong>Description: </strong> {description || 'No description added yet'}</p>
+
+        {#if isEditingDescription}
+        <div class="mt-4">
+            <textarea
+                bind:value={newDescription}
+                class="w-full border rounded px-2 py-1"
+                placeholder="Enter your description"
+            ></textarea>
+            <button
+                class="mt-2 px-4 py-2 bg-green-500 text-white rounded"
+                on:click={updateDescription}
+            >
+                Save
+            </button>
+            <button
+                class="mt-2 px-4 py-2 bg-gray-500 text-white rounded"
+                on:click={() => isEditingDescription = false}
+            >
+                Cancel
+            </button>
+        </div>
+    {:else}
+        <button
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            on:click={() => {
+                newDescription = description;
+                isEditingDescription = true;
+            }}
+        >
+            Edit Description
+        </button>
+        {/if}
         <button
             class="mt-4 px-4 py-2 bg-red-500 text-white rounded"
             on:click={signOut}

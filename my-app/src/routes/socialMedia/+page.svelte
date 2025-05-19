@@ -68,6 +68,7 @@
                 <h2 class="text-xl font-bold">{post.title}</h2>
                 <p>{post.description}</p>
                 <img src="https://picsum.photos/500/200?random={post.id}" alt="Post image" class="mt-2" />
+                <p><strong>Created by: </strong>{post.creator}</p>
             </li>
         </button>
         {/each}

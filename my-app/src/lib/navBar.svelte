@@ -105,7 +105,7 @@
 		</div>
 		<button
 			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer flex justify-center items-center gap-2"
-			on:click={() => goto('/become-a-seller')}
+			on:click={() => goto('/messages')}
 		>
 		<FontAwesomeIcon icon={faEnvelope}/>
 			<h1>Messages</h1>

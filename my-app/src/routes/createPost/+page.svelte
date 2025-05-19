@@ -9,16 +9,6 @@
     let description = '';
     let error = null;
 
-    // Fetch posts from the database
-    /* async function fetchPosts() {
-        const { data, error: fetchError } = await supabase.from('social_media').select('*');
-        if (fetchError) {
-            error = fetchError.message;
-        } else {
-            posts = data;
-        }
-    }
- */
     // Add a new post
     async function addPost() {
         const currentSession = get(session);
@@ -33,9 +23,11 @@
             return;
         }
 
+        const creator = currentSession.user.email;
+
         const { error: insertError } = await supabase
             .from('social_media')
-            .insert([{ title, description}]);
+            .insert([{ title, description, creator}]);
 
         if (insertError) {
             error = insertError.message;
@@ -50,23 +42,7 @@
     //fetchPosts();
 </script>
 
-<h1>Social Media Posts</h1>
-
-<!-- {#if error}
-    <p class="text-red-500">Error: {error}</p>
-{:else if posts.length === 0}
-    <p>No posts found.</p>
-{:else}
-    <ul>
-        {#each posts as post}
-            <li class="border p-4 mb-4 rounded">
-                <h2 class="text-xl font-bold">{post.title}</h2>
-                <p>{post.description}</p>
-                <img src="https://picsum.photos/200?random={post.id}" alt="Post image" class="mt-2" />
-            </li>
-        {/each}
-    </ul>
-{/if} -->
+<h1>Create social media posts</h1>
 
 <div class="mt-8">
     <h2 class="text-2xl font-bold">Create a New Post</h2>
