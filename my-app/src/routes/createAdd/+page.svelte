@@ -7,27 +7,10 @@
 
     let navn = '';
     let beskrivelse = '';
+    let pris = '';
     let error = null;
     let successMessage = null;
 
-    // Function to handle form submission
-    /* async function createAd() {
-        error = null;
-        successMessage = null;
-
-        // Insert data into the "Anonnser" table
-        const { error: insertError } = await supabase.from('Annonser').insert([
-            { navn, beskrivelse }
-        ]);
-
-        if (insertError) {
-            error = insertError.message;
-        } else {
-            successMessage = 'Ad created successfully!';
-            navn = '';
-            beskrivelse = '';
-        }
-    } */
     async function createAd() {
         error = null;
         successMessage = null;
@@ -40,11 +23,18 @@
             return;
         }
 
+        if (pris < 0) {
+            error = 'You need a positive price';
+            pris = '';
+            return;
+        }
+
         // Insert data into the "Anonnser" table
         const { error: insertError } = await supabase.from('Annonser').insert([
             {
                 navn,
                 beskrivelse,
+                pris: parseInt(pris, 10),
                 creator_id: currentSession.user.id // Set the creator_id to the logged-in user's ID
             }
         ]);
@@ -55,6 +45,7 @@
             successMessage = 'Ad created successfully!';
             navn = '';
             beskrivelse = '';
+
         }
     }
 </script>
@@ -77,6 +68,10 @@
     <div>
         <label for="beskrivelse">Beskrivelse:</label>
         <textarea id="beskrivelse" bind:value={beskrivelse} required></textarea>
+    </div>
+    <div>
+        <label for="pris">Pris:</label>
+        <input id="pris" type="number" bind:value={pris} required>
     </div>
     <button type="submit">Create Ad</button>
 </form>

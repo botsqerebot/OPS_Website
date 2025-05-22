@@ -2,6 +2,7 @@
     import { supabase } from '$lib/supabase';
     import { session } from '$lib/store/session';
     import { get } from 'svelte/store';
+    import { onMount } from 'svelte';
 
     let user = null;
     let fornavn = '';
@@ -16,10 +17,46 @@
     let newDescription = '';
     let isEditingDescription = false;
 
+    // Light/dark mode
+    let darkMode = true;
+
+    // Load mode from localStorage if available
+    onMount(() => {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+            darkMode = stored === 'dark';
+            updateTheme();
+        } else {
+            updateTheme();
+        }
+    });
+
+    function toggleTheme() {
+        darkMode = !darkMode;
+        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        updateTheme();
+    }
+
+    function updateTheme() {
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }
+
+    $: updateTheme();
+
+    $: if ($session && $session.user) {
+        fetchUserData();
+    }
+    
+
     // Listen for authentication state changes
     async function fetchUserData() {
         try {
             const currentSession = get(session);
+            //const user = $session.user;
 
             if (currentSession && currentSession.user) {
                 user = currentSession.user;
@@ -130,9 +167,15 @@
         }
     }
 
-    fetchUserData();
+   
 </script>
 
+<!-- <button
+    class="px-4 py-2 rounded bg-[#BD9CFF] text-[#262626] font-semibold mb-6"
+    on:click={toggleTheme}
+>
+    {darkMode ? 'Bytt til lys modus' : 'Bytt til mørk modus'}
+</button> -->
 
 {#if user}
     <div class="p-4">

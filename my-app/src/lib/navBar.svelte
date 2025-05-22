@@ -38,8 +38,8 @@
 		};
 	});
 </script>
-
-<div class="w-full h-[66px] px-5 flex items-center justify-between bg-[#191919] text-white">
+<div class="flex flex-col">
+<div class="w-full h-[66px] px-5 flex items-center justify-between bg-[#191118] text-white">
 	<div id="navBarLogo" class="h-[50px] w-[50px] border-3 border-[#BD9CFF] rounded-2xl">
 		<img src="/favicon.png" alt="Logo" />
 	</div>
@@ -52,7 +52,7 @@
 			<h1>Explore</h1>
 		</button>
 		<button class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer" 
-		on:click={() => goto('/socialMedia')}><h1>Social madia</h1></button>
+		on:click={() => goto('/socialMedia')}><h1>Social media</h1></button>
 		<div class="relative">
 			<!-- Create Button -->
 			<button
@@ -84,7 +84,7 @@
 				>
 					<button
 						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
-						on:click={() => goto('./createAdd')}
+						on:click={() => goto('/createAdd')}
 					>
 						Anonnse
 					</button>
@@ -94,12 +94,12 @@
 					>
 						Post
 					</button>
-					<button
+					<!-- <button
 						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
 						on:click={() => goto('/option3')}
 					>
 						Option 3
-					</button>
+					</button> -->
 				</div>
 			{/if}
 		</div>
@@ -134,4 +134,6 @@
         {/if}
 
 	</div>
+</div>
+<div class="bg-[#BD9CFF] h-0.5 w-full"></div>
 </div>
