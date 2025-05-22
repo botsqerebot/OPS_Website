@@ -1,4 +1,4 @@
-<div class="w-full bg-[#262626] text-[#BD9CFF] py-6">
+<div class="w-full bg-[#191118] text-[#BD9CFF] py-6">
     <div class="max-w-5xl mx-auto flex flex-row justify-between">
         <!-- About Column -->
         <div class="flex-1 px-4">
