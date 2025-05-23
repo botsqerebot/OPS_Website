@@ -167,34 +167,8 @@ $: filteredUsers = userSearch
 
 <div class="flex">
 	<!-- Conversations List -->
-	<div class="w-1/4 border-r">
+	<div class="w-1/4 border-r w-min-80vh">
 		<h2 class="text-lg font-bold">Conversations</h2>
-		<!--
-        <div class="mb-4">
-            <input
-                type="text"
-                placeholder="Start new conversation..."
-                bind:value={userSearch}
-                class="w-full border rounded px-2 py-1"
-            />
-            {#if userSearch && filteredUsers.length > 0}
-                <ul class="border rounded mt-1 bg-white text-black">
-                    {#each filteredUsers as user}
-                        <li>
-                            <button
-                                class="w-full text-left px-2 py-1 hover:bg-gray-200"
-                                on:click={() => {
-                                    receiverId = user.id;
-                                    userSearch = '';
-                                }}
-                            >
-                                {user.fornavn} {user.etternavn}
-                            </button>
-                        </li>
-                    {/each}
-                </ul>
-            {/if}
-        </div> -->
 		<ul>
 			{#each conversations as userId}
 				<li>

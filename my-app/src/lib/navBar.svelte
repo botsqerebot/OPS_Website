@@ -48,26 +48,31 @@
 </script>
 
 <div class="flex flex-col">
-	<div class="w-full h-[66px] px-5 flex items-center justify-between bg-[#191118] text-white">
-		<div id="navBarLogo" class="h-[50px] w-[50px] border-3 border-[#BD9CFF] rounded-2xl">
-			<img src="/favicon.png" alt="Logo" />
-		</div>
+	<div class="w-full h-[80px] px-5 flex items-center justify-between bg-[#191118] text-white">
+		<button
+			id="navBarLogo"
+			class="h-[80px] w-[250px] flex justify-center items-center rounded-2xl cursor-pointer"
+			on:click={() => goto('/')}
+		>
+			<img src="/logo_svart_liggende.png" alt="Logo" class="h-[75px] w-auto" />
+		</button>
 		<div id="navBarContents" class="flex items-center flex-row gap-6">
 			<button
-				class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
+				class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer text-xl"
 				on:click={() => goto('/anonnsePage')}
 			>
-				<!-- <FontAwesomeIcon icon={faHome} />  -->
 				<h1>Explore</h1>
 			</button>
 			<button
-				class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
-				on:click={() => goto('/socialMedia')}><h1>Social media</h1></button
+				class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer text-xl"
+				on:click={() => goto('/socialMedia')}
 			>
+				<h1>Social media</h1>
+			</button>
 			<div class="relative">
 				<!-- Create Button -->
 				<button
-					class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
+					class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer text-xl"
 					on:click={() => {
 						showDropdown = !showDropdown;
 					}}
@@ -105,39 +110,25 @@
 						>
 							Post
 						</button>
-						<!-- <button
-						class="px-4 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
-						on:click={() => goto('/option3')}
-					>
-						Option 3
-					</button> -->
 					</div>
 				{/if}
 			</div>
 			<button
-				class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer flex justify-center items-center gap-2"
+				class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer flex justify-center items-center gap-2 text-xl"
 				on:click={() => goto('/messages')}
 			>
-				<!-- <FontAwesomeIcon icon={faEnvelope} /> -->
 				<h1>Messages</h1>
 			</button>
-			<!-- <button
-			class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl flex items-center gap-2 cursor-pointer"
-			on:click={() => goto('/loginPage')}
-		>
-			<FontAwesomeIcon icon={faSignInAlt} />
-			<h1>Log in</h1>
-		</button> -->
 			{#if session}
 				<button
-					class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer"
+					class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer text-xl"
 					on:click={() => goto('/profilePage')}
 				>
 					Profile
 				</button>
 			{:else}
 				<button
-					class="px-4 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer"
+					class="h-[64px] px-6 py-2 border-2 border-[#BD9CFF] rounded-2xl cursor-pointer text-xl"
 					on:click={() => goto('/profilePage')}
 				>
 					Log In
