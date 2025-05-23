@@ -94,10 +94,14 @@ $: filteredUsers = userSearch
 	}
 
 	async function sendMessage() {
+		const trimmed = messageContent.trim();
+		if (trimmed.length < 2) {
+			return; // Optionally show an error message here
+		}
 		const { error: insertError } = await supabase.from('Messages').insert({
 			sender_id: $session.user.id,
 			receiver_id: receiverId,
-			content: messageContent
+			content: trimmed
 		});
 
 		if (insertError) {
@@ -165,52 +169,80 @@ $: filteredUsers = userSearch
 	});
 </script>
 
-<div class="flex">
-	<!-- Conversations List -->
-	<div class="w-1/4 border-r w-min-80vh">
-		<h2 class="text-lg font-bold">Conversations</h2>
-		<ul>
-			{#each conversations as userId}
-				<li>
-					<button
-						class="block w-full text-left p-2 hover:bg-gray-100"
-						on:click={() => (receiverId = userId)}
-					>
-						{#if userMap[userId]}
-							{userMap[userId].fornavn} {userMap[userId].etternavn}
-						{:else}
-							...
-						{/if}
-					</button>
-				</li>
-			{/each}
-		</ul>
-	</div>
-
-	<!-- Messages Section -->
-	<div class="w-3/4 p-4">
-		{#if receiverId && userMap[receiverId]}
-			<h2 class="text-lg font-bold">
-				Chat with User {userMap[receiverId].fornavn}
-				{userMap[receiverId].etternavn}
-			</h2>
-			<div class="border p-4 h-64 overflow-y-scroll">
-				{#each messages as message}
-					<div class={message.sender_id === $session.user.id ? 'text-right' : 'text-left'}>
-						<p>{message.content}</p>
-					</div>
+<div class="w-full min-h-screen flex justify-center items-center bg-[#f3e8ff] py-0">
+	<div
+		class="w-full max-w-6xl h-[80vh] bg-white rounded-2xl shadow-2xl border-2 border-[#BD9CFF] flex overflow-hidden"
+	>
+		<!-- Conversations List -->
+		<div class="w-1/3 min-w-[200px] border-r border-[#BD9CFF] bg-[#f8f5ff] p-6 flex flex-col">
+			<h2 class="text-2xl font-bold text-[#7c3aed] mb-6">Samtaler</h2>
+			<ul class="space-y-2 flex-1 overflow-y-auto">
+				{#each conversations as userId}
+					<li>
+						<button
+							class="block w-full text-left px-4 py-3 rounded-lg hover:bg-[#e9ddff] transition font-medium text-[#262626] {receiverId ===
+							userId
+								? 'bg-[#e9ddff] font-bold'
+								: ''}"
+							on:click={() => (receiverId = userId)}
+						>
+							{#if userMap[userId]}
+								{userMap[userId].fornavn} {userMap[userId].etternavn}
+							{:else}
+								...
+							{/if}
+						</button>
+					</li>
 				{/each}
-			</div>
-			<textarea
-				bind:value={messageContent}
-				placeholder="Write your message..."
-				class="w-full border rounded px-2 py-1 mt-2"
-			></textarea>
-			<button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded" on:click={sendMessage}>
-				Send
-			</button>
-		{:else}
-			<p>Select a conversation to start messaging.</p>
-		{/if}
+			</ul>
+		</div>
+
+		<!-- Messages Section -->
+		<div class="w-2/3 p-8 flex flex-col h-full">
+			{#if receiverId && userMap[receiverId]}
+				<h2 class="text-2xl font-bold text-[#7c3aed] mb-4">
+					Chat med {userMap[receiverId].fornavn}
+					{userMap[receiverId].etternavn}
+				</h2>
+				<div
+					class="flex-1 border border-[#BD9CFF] rounded-xl p-6 mb-6 bg-[#faf7ff] overflow-y-auto"
+					style="min-height:0;"
+				>
+					{#each messages as message}
+						<div
+							class="mb-3 flex {message.sender_id === $session.user.id
+								? 'justify-end'
+								: 'justify-start'}"
+						>
+							<div
+								class="{message.sender_id === $session.user.id
+									? 'bg-[#BD9CFF] text-[#262626]'
+									: 'bg-gray-200 text-[#262626]'} px-5 py-3 rounded-2xl max-w-[70%] break-words shadow"
+							>
+								<p>{message.content}</p>
+							</div>
+						</div>
+					{/each}
+				</div>
+				<div class="flex gap-3">
+					<textarea
+						bind:value={messageContent}
+						placeholder="Skriv en melding..."
+						class="flex-1 border-2 border-[#BD9CFF] rounded-xl px-4 py-3 resize-none focus:outline-none focus:border-[#a87cff] bg-white text-[#262626]"
+						rows="2"
+					></textarea>
+					<button
+						class="px-8 py-3 bg-[#BD9CFF] hover:bg-[#a87cff] text-[#262626] font-bold rounded-xl shadow transition"
+						on:click={sendMessage}
+					>
+						Send
+					</button>
+				</div>
+			{:else}
+				<div class="flex items-center justify-center h-full text-[#7c3aed] text-lg font-semibold">
+					Velg en samtale for å starte meldinger.
+				</div>
+			{/if}
+		</div>
 	</div>
 </div>
