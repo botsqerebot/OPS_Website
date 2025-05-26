@@ -9,9 +9,9 @@
 				class="h-[125px] md:h-40 w-full mb-7 rounded-2xl bg-white border-2 border-[#BD9CFF] shadow-lg hover:shadow-2xl transition-shadow duration-200 text-4xl md:text-5xl text-black flex flex-col justify-between py-5 px-6 text-right font-semibold hover:bg-[#f3e8ff] focus:outline-none"
 				on:click={() => goto('/createAdd')}
 			>
-				<h1>Make an add</h1>
+				<h1>Make an ad</h1>
 				<div class="text-left text-lg md:text-2xl mt-2 text-gray-700 font-normal">
-					<p>Make an add to offer work you can do</p>
+					<p>Make an ad to offer work you can do</p>
 				</div>
 			</button>
 		</li>

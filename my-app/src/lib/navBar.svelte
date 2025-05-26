@@ -118,7 +118,7 @@
 								showDropdown = false;
 							}}
 						>
-							Anonnse
+							Ad
 						</button>
 						<button
 							class="px-7 py-2 w-full hover:bg-gray-100 cursor-pointer rounded-md"
